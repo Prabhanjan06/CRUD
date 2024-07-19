@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import Product from "./src/mongodb.js"; 
+import Product from "./src/mongodb.js";
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,7 +15,7 @@ app.get("/message", (req, res) => {
 });
 
 // create
-app.post("/create", async (req, res) => {
+app.post("/Create", async (req, res) => {
   const { name, price } = req.body;
   console.log("Received data:", { name, price });
 
@@ -34,7 +34,7 @@ app.post("/create", async (req, res) => {
 });
 
 // update
-app.patch("/update", async (req, res) => {
+app.patch("/Update", async (req, res) => {
   const { name, price } = req.body;
   console.log("Received data:", { name, price });
 
@@ -57,15 +57,15 @@ app.patch("/update", async (req, res) => {
 });
 
 // delete
-app.delete("/delete", async (req, res) => {
-  const { name } = req.body;
+app.delete("/Delete", async (req, res) => {
+  const { name } = req.query; // Use query parameters for DELETE requests
   console.log("Received data:", { name });
 
   try {
     const deleteProduct = await Product.deleteOne({ name: name });
 
     if (deleteProduct.deletedCount > 0) {
-      res.json({ message: "Product deleted!", product: deleteProduct });
+      res.json({ message: "Product deleted!" });
     } else {
       res.status(404).json({ message: "Product not found" });
     }
@@ -76,7 +76,7 @@ app.delete("/delete", async (req, res) => {
 });
 
 // show product
-app.get("/showAll", async (req, res) => {
+app.get("/Show", async (req, res) => {
   try {
     const showProduct = await Product.find();
 
