@@ -18,12 +18,16 @@ function Crud() {
     console.log(name);
     if (name === "Create") {
       setRest("post");
+      setResponseMessage("");
     } else if (name === "Update") {
       setRest("patch");
+      setResponseMessage("");
     } else if (name === "Delete") {
       setRest("delete");
+      setResponseMessage("");
     } else if (name === "Show") {
       setRest("get");
+      setResponseMessage("");
     }
 
     setLabel(name + " Product");
@@ -97,7 +101,7 @@ function Crud() {
         />
       </div>
       <div className="container p-2">
-        <h1>{endPoint} Product</h1>
+        {endPoint && <h1>{endPoint} Product</h1>}
         {endPoint && (
           <form onSubmit={submit} className="form-floating">
             {endPoint !== "Show" && (
